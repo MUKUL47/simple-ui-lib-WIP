@@ -1,0 +1,14 @@
+{
+  "presets": [
+    ["@babel/preset-env", { "modules": false }],
+    [
+      "@babel/preset-react",
+      {
+        "pragma": "h", // Custom JSX function instead of React.createElement
+        "pragmaFrag": "Fragment", // If you want <></> support
+        "throwIfNamespace": false,
+        "runtime": "classic"
+      }
+    ]
+  ]
+}
