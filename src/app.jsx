@@ -1,14 +1,15 @@
-import { render } from "./renderer.js";
+import {  render } from "./2_functionalrendering/renderer.js";
 import { h } from "./tag.js";
-const E = (props) => {
-    <p></p>
+function ListItem(props) {
+  return <li>{props.text}</li>;
 }
-const MyEl = (props) => (
-  <a color="red">
-    <box color="red">Hello <div></div></box>
-    <E/>
-  </a>
-);
-let A = <MyEl data="123" mtWorld={123}><E/><MyEl/></MyEl>
-console.log(A)
+
+function List(props) {
+  return <ul>{props.items.map(item => <ListItem text={item} />)}</ul>;
+}
+
+const tree = <List items={["Apple", "Banana", "Cherry"]} />;
+// console.log(A)
+// console.log(<E/>)
+render(tree, document.querySelector?.('#root'));
 // render(element, document.querySelector('#root'));
