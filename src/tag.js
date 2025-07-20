@@ -1,4 +1,4 @@
 function h(tag, props, ...children) {
-  return { tag, props, children: children.flat() };
+  return { tag, props: props ?? {}, children: children.flat() };
 }
 export { h };
