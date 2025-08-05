@@ -1,50 +1,28 @@
-import { render, getRawTree, updateDiff } from "./3_diffcheckrendering/renderer.js";
-import { h } from "./tag.js";
+import { DOM, useState, h } from "./lib.js";
 const E = (props) => {
-  return <C children={<p>12</p>}></C>;
+  const  [s,cb]= useState(3);
+  setTimeout(() => console.log(cb()),20)
+  return <C>1{props.children}2</C>;
 };
 const C = (props) => {
+  const  [s,cb]= useState(34);
+  setTimeout(() => console.log(cb()),1000)
   return <d>{props.children}</d>;
 };
-const MyEl = (props) => (
-  <a color="red">
-    {props.children}
-    <box color="red">
-      3 <div>5</div>2<h1>5</h1>
-    </box>
-    <E i={2} />
-  </a>
+const MyEl = (props) => {
+  useState(1);
+  return (
+    <a color="red">
+      <E i={2} />
+      <box color="red">
+        3 <div>5</div>2<h1>5</h1>
+        {props.children}
+      </box>
+    </a>
+  );
+};
+
+const D = (
+  <E>55</E>
 );
-let A = (
-  <section>
-    <header id='123' v='12331'>
-      <h1>Title</h1>
-    </header>
-    <main>
-      <p>Hello</p>
-      <p>World</p>
-    </main>
-    <footer>
-      <span>2024</span>
-    </footer>
-  </section>
-);
-const targetNode = (
-  <section>
-    <header id='1223'>
-      <h2>Title Changed</h2> {/* tag changed from h1 → h2 + text updated */}
-    </header>
-    <main id='12a23'>
-      <p>Hello</p>           {/* same */}
-      <div>New Content</div> {/* tag changed from p → div + text changed */}
-      <p>Another</p>         {/* new node added */}
-    </main>
-    <aside >Sidebar</aside>   {/* new sibling added */}
-  </section>
-);
-// console.log(<E/>)
-const [treeNode, rootNode] = render(A, document.querySelector?.("#root"));
-const V = render(targetNode, document.createElement('div'));
-updateDiff(treeNode, V[0])
-// updateDiff(treeNode, render(targetNode, document.createElement('div'))[0])
-// render(element, document.querySelector('#root'));
+DOM.render(D, document.querySelector?.("#root"));
